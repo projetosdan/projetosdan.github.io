@@ -300,8 +300,8 @@ function calcSalario(form) {
     if (form.funben.checked){
         $('#depsFunbendiv').css('visibility','visible');
         var depsfunben = dependentesFunben(form.numDepFunben.value),
-            funbentit = basepss * 0.03,
-            funbendeps = basepss * depsfunben,
+            funbentit = (vencimento + vbretro) * 0.03,
+            funbendeps = (vencimento + vbretro) * depsfunben,
             funben = funbentit + funbendeps;
     } else {
         $('#depsFunbendiv').css('visibility','hidden');
@@ -314,7 +314,7 @@ function calcSalario(form) {
     var rendTributavel = remuneracao;
 
     //var deducoesIrrf = valorpss + aliqfunp + aliqFunpFacul + reducaoDepsIRRF;
-    var deducoesIrrf = valorpss + reducaoDepsIRRF;
+    var deducoesIrrf = valorpss + funben + reducaoDepsIRRF;
 
     var baseirrf = rendTributavel - deducoesIrrf;
 
