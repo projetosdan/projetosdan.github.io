@@ -324,6 +324,21 @@
                                     <input type="text" name="txSindicato" value="R$ 0,00" readonly />
                                 </label>
                             </div>
+                            <div>
+                                <label>
+                                    Retroativo (dias):
+                                    <input type="number" name="retro" id="retro1" min="0" max="30"
+                                        step="1" value="0" style="width: 45px;" onClick="calcSalario(this.form);"
+                                        onKeyUp="calcSalario(this.form);" />
+                                    </br>
+                                    VB: <input type="text" name="txVBretro" value="R$ 0,00" readonly />
+                                    <br/>
+                                    G.Leg: <input type="text" name="txGratRetro" value="R$ 0,00" readonly />
+                                    </br>
+                                    AQ: <input type="text" name="txAQretro" value="R$ 0,00" readonly />
+                                    </br>
+                                </label>
+                            </div>
                         </div>
                         <div id="tab-outros1" class="tab-content tab-content1">
                             <small>Utilize estes campos caso possua outros rendimentos ou descontos em folha, como

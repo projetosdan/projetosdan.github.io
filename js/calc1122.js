@@ -177,8 +177,7 @@ function calcSalario(form) {
     var reajuste = parseInt(form.numProposta.value, 10);
     base = base * (1 + (reajuste / 100));
 
-    var cursos = parseInt(form.cursos.value),
-        aqcursos = cursos * 200;
+
 
     var nivelMerito = 1,
         nivelCap = 0,
@@ -246,11 +245,20 @@ function calcSalario(form) {
     } else if (form.ddQuali.value == 4) {
         qualificacao = 950;
     }
+    var cursos = parseInt(form.cursos.value),
+        aqcursos = cursos * 200;
+        qualificacao = qualificacao += aqcursos;
+    
+    var retro = parseInt(form.retro.value),
+        vbretro = vencimento / 30 * retro,
+        gratretro = grat / 30 * retro,
+        aqretro = qualificacao / 30 * retro,
+        retroativo = vbretro + gratretro + aqretro;
 
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
 
-    var remuneracao = vencimento + grat + qualificacao + aqcursos + anuenio + outrosRendTrib;
+    var remuneracao = vencimento + grat + qualificacao + retroativo + anuenio + outrosRendTrib;
 
     var sindicato = 0;
     if (form.ddSindTipo.value != "nao") {
@@ -264,8 +272,9 @@ function calcSalario(form) {
         }
     }
 
+
     //A base do PSS é quase a mesma da 'remuneracao', mas sem insalubridade pois a cobrança é opcional
-    var basepss = remuneracao - grat;
+    var basepss = remuneracao - grat - gratretro;
 
     //var valorpss = calcPSS(periodo, basepss, tetopss);
     var valorpss = calcPSS(periodo, basepss);
@@ -308,7 +317,9 @@ function calcSalario(form) {
     document.getElementById("diffLiqPct").innerHTML = (100 * diffLiqs / liq1).toFixed(2).replace(".", ",") + "%";
     document.getElementById("diffLiqPor").innerHTML = ((100 * liq2) / liq1).toFixed(0) + "%";
     form.txVB.value = formatValor(vencimento);
+    form.txVBretro.value = formatValor(vbretro);
     form.txGrat.value = formatValor(grat);
+    form.txGratRetro.value = formatValor(gratretro);
     form.txResult.value = formatValor(salario);
     form.txInss.value = formatValor(valorpss);
     form.txBruto.value = formatValor(bruto);
@@ -318,6 +329,7 @@ function calcSalario(form) {
     form.txdesconto.value = formatValor(descontos);
     form.txSindicato.value = formatValor(sindicato);
     form.txQualif.value = formatValor(qualificacao);
+    form.txAQretro.value = formatValor(aqretro);
     form.txDepIRRF.value = formatValor(reducaoDepsIRRF);
 
     //Display info on Detailed Results
