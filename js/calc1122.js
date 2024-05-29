@@ -190,7 +190,7 @@ function calcSalario(form) {
     //     ftstep = 1.039;
     //     base = 1822.77 * (1 + (reajuste / 100));
     // }
-    var reajuste = parseInt(form.numProposta.value, 10);
+    var reajuste = parseFloat(form.numProposta.value);
     base = base * (1 + (reajuste / 100));
 
 
