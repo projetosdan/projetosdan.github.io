@@ -273,7 +273,7 @@ function calcSalario(form) {
     var reducaoDepsIRRF = dependentesIR(form.numDepIRRF.value, periodo);
 
     //var rendTributavel = vencimento + qualificacao + anuenio + ftinsa * vencimento + outrosRendTrib;
-    var rendTributavel = remuneracao - grat;
+    var rendTributavel = remuneracao;
 
     //var deducoesIrrf = valorpss + aliqfunp + aliqFunpFacul + reducaoDepsIRRF;
     var deducoesIrrf = valorpss + reducaoDepsIRRF;
