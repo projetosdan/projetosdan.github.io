@@ -233,6 +233,24 @@
                                 </label>
                             </div>
                             <div>
+                                <label>
+                                    Funben:
+                                    <input type="checkbox" name="funben" id="funben1" value="0"
+                                        onClick="calcSalario(this.form);" />
+                                    <input type="text" name="txFunbenTit" value="R$ 0,00" readonly />
+                                </label>
+                            </div>
+                            <div id="depsFunbendiv">
+                                <label
+                                onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">
+                                Nº de dep. Funben:
+                                <input type="number" name="numDepFunben" id="numDepFunben1" min="0" max="20" step="1"
+                                    value="0" style="width: 35px;" onClick="calcSalario(this.form);"
+                                    onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
+                                <input type="text" name="txDepsFunben" value="R$ 0,00" readonly />
+                            </label>
+                            </div>
+                            <div>
                                 <label
                                     onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">
                                     Nº de dep. IR:
@@ -243,10 +261,14 @@
                                 </label>
                             </div>
                             <div>
+                                <label>
+                                    Ticket alimentação
+                                    <input type="checkbox" name="ticket" id="ticket1" value="0"
+                                        onClick="calcSalario(this.form);" />
+                                    <input type="text" name="txTicket" value="R$ 0,00" readonly />
+                                </label>
                                 <label
                                     onmouseover="nhpup.popup('A contribuição sindical varia de acordo com o sindicato. As principais formas de cálculo são 1% do seu VB e 1% do menor VB da categoria.')">
-                                    <!--<input type="checkbox" name="sindicato" id="sindicato1" value=""
-                                        onClick="calcSalario(this.form);" /> -->
                                     Sindicato:
                                     <select name="ddSindTipo" id="ddSindTipo1" onchange="calcSalario(this.form);"
                                         style="width: 110px;">
@@ -270,19 +292,11 @@
                                     VB: <input type="text" name="txVBretro" value="R$ 0,00" readonly />
                                     <br/>
                                     G.Leg: <input type="text" name="txGratRetro" value="R$ 0,00" readonly />
-                                </br>
+                                    <br />
                                     AQ: <input type="text" name="txAQretro" value="R$ 0,00" readonly />
-                                </br>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Ticket alimentação
-                                <input type="checkbox" name="ticket" id="ticket1" value="0"
-                                    onClick="calcSalario(this.form);" />
-                                <input type="text" name="txTicket" value="R$ 0,00" readonly />
-                            </label>
-                        </div>
+                                    <br />
+                                </label>
+                            </div>
                         </div>
                         <div id="tab-outros1" class="tab-content tab-content1">
                             <small>Utilize estes campos caso possua outros rendimentos ou descontos em folha, como

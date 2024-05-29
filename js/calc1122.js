@@ -108,6 +108,11 @@ function dependentesIR(deps, periodo) {
     return Math.floor(aliq * 100) / 100;
 }
 
+function dependentesFunben(deps) {
+    var aliq = deps * 0.01;
+    return Math.floor(aliq * 100) / 100;
+}
+
 function atualizaPold(form) {
     var pold = parseInt(form.ddNivel.value),
     capold = 0;
@@ -291,6 +296,20 @@ function calcSalario(form) {
 
     var reducaoDepsIRRF = dependentesIR(form.numDepIRRF.value, periodo);
 
+    //Funben
+    if (form.funben.checked){
+        $('#depsFunbendiv').css('visibility','visible');
+        var depsfunben = dependentesFunben(form.numDepFunben.value),
+            funbentit = basepss * 0.03,
+            funbendeps = basepss * depsfunben,
+            funben = funbentit + funbendeps;
+    } else {
+        $('#depsFunbendiv').css('visibility','hidden');
+        funbentit = 0;
+        funbendeps = 0;
+        funben = 0;
+    }
+
     //var rendTributavel = vencimento + qualificacao + anuenio + ftinsa * vencimento + outrosRendTrib;
     var rendTributavel = remuneracao;
 
@@ -309,7 +328,7 @@ function calcSalario(form) {
 
     var outrosdescontos = parseFloat(form.numOutros.value) || 0;
 
-    var descontos = aliqirrf + valorpss + sindicato + outrosdescontos;
+    var descontos = aliqirrf + funben + valorpss + sindicato + outrosdescontos;
 
     var bruto = remuneracao + outrosRendIsnt;
 
@@ -343,6 +362,8 @@ function calcSalario(form) {
     form.txDepIRRF.value = formatValor(reducaoDepsIRRF);
     form.txTicket.value = formatValor(ticket);
     form.txCticket.value = formatValor(salario + ticket);
+    form.txFunbenTit.value = formatValor(funbentit);
+    form.txDepsFunben.value = formatValor(funbendeps);
 
     //Display info on Detailed Results
     var formid = 1;
