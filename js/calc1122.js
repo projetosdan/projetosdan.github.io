@@ -144,7 +144,18 @@ function calcSalario(form) {
         //$('#numProposta2').parent().css('visibility','hidden');
     }
     $('#maindiv3').css('visibility','hidden');
+    //if (!form.ticket.checked){}
+
    // $('#menu-bar').css('visibility','hidden');
+
+    if (form.ticket.checked){
+        var ticket = 1400.0;
+        $('#ticketdiv').css('visibility','visible');  
+    } 
+    else {
+        ticket = 0;
+        $('#ticketdiv').css('visibility','hidden');
+    }
 
     var periodo = parseInt(form.ddAno.value),
     base = 17154.93,
@@ -272,7 +283,6 @@ function calcSalario(form) {
         }
     }
 
-
     //A base do PSS é quase a mesma da 'remuneracao', mas sem insalubridade pois a cobrança é opcional
     var basepss = remuneracao - grat - gratretro;
 
@@ -312,10 +322,10 @@ function calcSalario(form) {
     //Toggle URP input visibility
 
     //Print results after each calculation
-    var diffLiqs = (liq2 - liq1);
+    /* var diffLiqs = (liq2 - liq1);
     document.getElementById("diffLiqAbs").innerHTML = formatValor(diffLiqs);
     document.getElementById("diffLiqPct").innerHTML = (100 * diffLiqs / liq1).toFixed(2).replace(".", ",") + "%";
-    document.getElementById("diffLiqPor").innerHTML = ((100 * liq2) / liq1).toFixed(0) + "%";
+    document.getElementById("diffLiqPor").innerHTML = ((100 * liq2) / liq1).toFixed(0) + "%"; */
     form.txVB.value = formatValor(vencimento);
     form.txVBretro.value = formatValor(vbretro);
     form.txGrat.value = formatValor(grat);
@@ -331,6 +341,8 @@ function calcSalario(form) {
     form.txQualif.value = formatValor(qualificacao);
     form.txAQretro.value = formatValor(aqretro);
     form.txDepIRRF.value = formatValor(reducaoDepsIRRF);
+    form.txTicket.value = formatValor(ticket);
+    form.txCticket.value = formatValor(salario + ticket);
 
     //Display info on Detailed Results
     var formid = 1;
@@ -346,7 +358,7 @@ function calcSalario(form) {
     }
 
     addDetailValue("#tabdetails-rend", formid, "VB", vencimento);
-    //addDetailValue("#tabdetails-rend", formid, "VA", alimentacao);
+    addDetailValue("#tabdetails-rend", formid, "Ticket Alimentacao", ticket);
     //if (transporte > 0) addDetailValue("#tabdetails-rend", formid, "VT", transporte);
     //if (anuenio > 0) addDetailValue("#tabdetails-rend", formid, "Anuênio", anuenio);
     if (outrosRendIsnt > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Isen.", outrosRendIsnt);
@@ -370,118 +382,4 @@ function calcSalario(form) {
 function addDetailValue(parent, form, name, value) {
     var newEl = "<div>" + name + ": " + formatValor(value) + "</div>";
     $(parent + "-" + form).append(newEl);
-}
-
-function inverterform(tipo) {
-    var form1 = document.forms["myform"];
-    var form2 = document.forms["myform2"];
-
-    if (tipo == "inverter") {
-        var values1 = Array(
-            form1.ddClasse.value,
-            form1.ddProg.value,
-            form1.ddAno.value,
-            form1.ddQuali.value,
-            0, //form1.sindicato.checked,
-            form1.numDepIRRF.value,
-            form1.ddSindTipo.value,
-            form1.numOutros.value,
-            form1.ddCargo.value,
-            form1.numOutrosRendIsnt.value,
-            form1.numOutrosRendTrib.value,
-            form1.numProposta.value,
-            //form1.ddPadrao.value,
-        );
-
-        var values2 = Array(            
-            form2.ddClasse.value,
-            form2.ddProg.value,
-            form2.ddAno.value,
-            form2.ddQuali.value,
-            0, //form1.sindicato.checked,
-            form2.numDepIRRF.value,
-            form2.ddSindTipo.value,
-            form2.numOutros.value,
-            form2.ddCargo.value,
-            form2.numOutrosRendIsnt.value,
-            form2.numOutrosRendTrib.value,
-            form2.numProposta.value,
-            //form2.ddPadrao.value,
-        );
-    } else if (tipo == "cima") {
-        var values2 = Array(
-            form2.ddClasse.value,
-            form2.ddProg.value,
-            form2.ddAno.value,
-            form2.ddQuali.value,
-            0, //form1.sindicato.checked,
-            form2.numDepIRRF.value,
-            form2.ddSindTipo.value,
-            form2.numOutros.value,
-            form2.ddCargo.value,
-            form2.numOutrosRendIsnt.value,
-            form2.numOutrosRendTrib.value,
-            form2.numProposta.value,
-            //form2.ddPadrao.value,
-        );
-
-        var values1 = values2;
-    } else {
-        var values1 = Array(
-            form1.ddClasse.value,
-            form1.ddProg.value,
-            form1.ddAno.value,
-            form1.ddQuali.value,
-            0, //form1.sindicato.checked,
-            form1.numDepIRRF.value,
-            form1.ddSindTipo.value,
-            form1.numOutros.value,
-            form1.ddCargo.value,
-            form1.numOutrosRendIsnt.value,
-            form1.numOutrosRendTrib.value,
-            form1.numProposta.value,
-            //form1.ddPadrao.value,
-        );
-
-        var values2 = values1;
-    }
-
-    form1.ddClasse.values2[0],
-    form1.ddProg.values2[1],
-    form1.ddAno.values2[2],
-    //form1.ddQuali.values2[3],
-    0, //form1.sindicato.checkeds2[4],
-    form1.numDepIRRF.values2[5],
-    form1.ddSindTipo.values2[6],
-    form1.numOutros.values2[7],
-    form1.ddCargo.values2[8],
-    form1.numOutrosRendIsnt.values2[9],
-    form1.numOutrosRendTrib.values2[10],
-    form1.numProposta.values2[11],
-    //form1.ddPadrao.values2[12],
-
-    ///////////////////////////////////
-
-    form2.ddClasse.values1[0],
-    form2.ddProg.values1[1],
-    form2.ddAno.values1[2],
-    //form2.ddQuali.values1[3],
-    0, //form2.sindicato.checkeds1[4],
-    form2.numDepIRRF.values1[5],
-    form2.ddSindTipo.values1[6],
-    form2.numOutros.values1[7],
-    form2.ddCargo.values1[8],
-    form2.numOutrosRendIsnt.values1[9],
-    form2.numOutrosRendTrib.values1[10],
-    form2.numProposta.values1[11],
-    //form2.ddPadrao.values1[14],
-
-    updateQuali(form1, values2[0]);
-    updateQuali(form2, values1[0]);
-
-    form1.ddQuali.value = values2[3];
-    form2.ddQuali.value = values1[3];
-
-    calcSalario(form1);
-    calcSalario(form2);
 }
