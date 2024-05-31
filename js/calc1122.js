@@ -152,7 +152,9 @@ function calcSalario(form) {
         //document.getElementById("numProposta2").disabled = true;
         //$('#numProposta2').parent().css('visibility','hidden');
     }
+    // Ocultando elementos com CSS
     $('#maindiv3').css('visibility','hidden');
+    $('#aqtext').css('visibility','hidden');
     //if (!form.ticket.checked){}
 
    // $('#menu-bar').css('visibility','hidden');
@@ -251,7 +253,7 @@ function calcSalario(form) {
     //     vencimento = Math.ceil(base * Math.pow(ftstep, ftvb) * ftcarga * 100 * frac) / 100;
     // }
    
-    var anuenio = (form.numAnuenio.value / 100) * vencimento;
+    var quinquenio = (form.numQuinquenio.value / 100) * vencimento;
 
     var insal = (form.ddInsa.value) * vencimento;
 
@@ -267,19 +269,22 @@ function calcSalario(form) {
     }
     var cursos = parseInt(form.cursos.value),
         aqcursos = cursos * 200;
-        qualificacao = qualificacao += aqcursos;
+
+        qualificacao += aqcursos;
     
-    var retro = parseInt(form.retro.value),
-        vbretro = vencimento / 30 * retro,
-        gratretro = grat / 30 * retro,
-        aqretro = qualificacao / 30 * retro,
-        insalretro = insal / 30 * retro,
+    var retro = parseInt(form.retro.value) / 30,
+        vbretro = vencimento * retro, // 30 * retro,
+        gratretro = grat * retro, // 30 * retro,
+        aqretro = qualificacao * retro, // 30 * retro,
+        insalretro = insal * retro, // 30 * retro,
         retroativo = vbretro + gratretro + aqretro + insalretro;
 
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
 
-    var remuneracao = vencimento + grat + qualificacao + insal + retroativo + anuenio + outrosRendTrib;
+    var adicionais = qualificacao + grat + insal + quinquenio;
+    
+    var remuneracao = vencimento + grat + qualificacao + insal + retroativo + quinquenio + outrosRendTrib;
 
     var sindicato = 0;
     if (form.ddSindTipo.value != "nao") {
@@ -315,7 +320,7 @@ function calcSalario(form) {
         funben = 0;
     }
 
-    //var rendTributavel = vencimento + qualificacao + anuenio + ftinsa * vencimento + outrosRendTrib;
+    //var rendTributavel = vencimento + qualificacao + quinquenio + ftinsa * vencimento + outrosRendTrib;
     var rendTributavel = remuneracao;
 
     //var deducoesIrrf = valorpss + aliqfunp + aliqFunpFacul + reducaoDepsIRRF;
@@ -351,6 +356,8 @@ function calcSalario(form) {
     document.getElementById("diffLiqPct").innerHTML = (100 * diffLiqs / liq1).toFixed(2).replace(".", ",") + "%";
     document.getElementById("diffLiqPor").innerHTML = ((100 * liq2) / liq1).toFixed(0) + "%"; */
     form.txVB.value = formatValor(vencimento);
+    form.txAdicionais.value = formatValor(adicionais);
+    form.txRetro.value = formatValor(retroativo);
     form.txVBretro.value = formatValor(vbretro);
     form.txGrat.value = formatValor(grat);
     form.txGratRetro.value = formatValor(gratretro);
@@ -388,22 +395,23 @@ function calcSalario(form) {
     addDetailValue("#tabdetails-rend", formid, "VB", vencimento);
     addDetailValue("#tabdetails-rend", formid, "Ticket Alimentacao", ticket);
     //if (transporte > 0) addDetailValue("#tabdetails-rend", formid, "VT", transporte);
-    if (anuenio > 0) addDetailValue("#tabdetails-rend", formid, "Quinquênio", anuenio);
+    if (quinquenio > 0) addDetailValue("#tabdetails-rend", formid, "Quinquênio", quinquenio);
     if (insal > 0) addDetailValue("#tabdetails-rend", formid, "Insal./Pericul.", insal);
-    if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", insal);
+    if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", retroativo);
     if (outrosRendIsnt > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Isen.", outrosRendIsnt);
     if (outrosRendTrib > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Trib.", outrosRendTrib);
 
     addDetailValue("#tabdetails-desc", formid, "FEPA", valorpss);
     addDetailValue("#tabdetails-desc", formid, "IR", aliqirrf);
     if (sindicato > 0) addDetailValue("#tabdetails-desc", formid, "Sindicato", sindicato);
+    if (funben > 0) addDetailValue("#tabdetails-desc", formid, "Funben", funben);
     if (outrosdescontos > 0) addDetailValue("#tabdetails-desc", formid, "Outros", outrosdescontos);
 
     addDetailValue("#tabdetails-outros", formid, "Bruto", bruto);
-    addDetailValue("#tabdetails-outros", formid, "Descontos", descontos);
-    addDetailValue("#tabdetails-outros", formid, "Líquido", salario);
-    addDetailValue("#tabdetails-outros", formid, "Base FEPA", basepss);
     addDetailValue("#tabdetails-outros", formid, "Base IR", baseirrf);
+    addDetailValue("#tabdetails-outros", formid, "Descontos", descontos);
+    addDetailValue("#tabdetails-outros", formid, "Base FEPA", basepss);
+    addDetailValue("#tabdetails-outros", formid, "Líquido", salario);
     addDetailValue("#tabdetails-outros", formid, "Deduções IR", deducoesIrrf);
 
     saveStorage();
