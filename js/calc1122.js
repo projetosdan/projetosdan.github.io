@@ -395,6 +395,7 @@ function calcSalario(form) {
     addDetailValue("#tabdetails-rend", formid, "VB", vencimento);
     addDetailValue("#tabdetails-rend", formid, "Ticket Alimentacao", ticket);
     //if (transporte > 0) addDetailValue("#tabdetails-rend", formid, "VT", transporte);
+    if (qualificacao > 0) addDetailValue("#tabdetails-rend", formid, "AQ", qualificacao);
     if (quinquenio > 0) addDetailValue("#tabdetails-rend", formid, "Quinquênio", quinquenio);
     if (insal > 0) addDetailValue("#tabdetails-rend", formid, "Insal./Pericul.", insal);
     if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", retroativo);
