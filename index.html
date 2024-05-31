@@ -196,16 +196,16 @@
                                     onmouseover="nhpup.popup('O Adicional por Tempo de Serviço é calculado como 5% por cada período de 5 anos. Ele foi revogado em 1999, mas se mantém para aqueles que o recebiam na época.')">
                                     Quinquênio:
                                 </label>
-                                <input type="number" name="numAnuenio" id="numAnuenio1" min="0" max="35" step="1"
+                                <input type="number" name="numAnuenio" id="numAnuenio1" min="0" max="35" step="5"
                                     value="0" style="width: 35px;" onClick="calcSalario(this.form);"
                                     onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
                                 %
                             </div>
                             <div>
                                 <label>
-                                    Qualificação:
+                                    Qualificação (AQ-I a AQ-IV):
                                     <select name="ddQuali" id="ddQuali1" onchange="calcSalario(this.form);"
-                                        style="width: 200px;">
+                                        style="width: 150px;">
                                         <option value="0" selected>
                                             Exigência Mínima
                                         </option>
@@ -226,29 +226,34 @@
                             </div>
                             <div>
                                 <label>
-                                    Cursos:
+                                    Cursos de capacitação (AQ-V):
                                     <input type="number" name="cursos" id="cursos1" min="0" max="3"
-                                        step="1" value="0" style="width: 45px;" onClick="calcSalario(this.form);"
+                                        step="1" value="0" style="width: 30px;" onClick="calcSalario(this.form);"
                                         onKeyUp="calcSalario(this.form);" />
                                 </label>
                             </div>
                             <div>
-                                <label>
-                                    Funben:
-                                    <input type="checkbox" name="funben" id="funben1" value="0"
-                                        onClick="calcSalario(this.form);" />
-                                    <input type="text" name="txFunbenTit" value="R$ 0,00" readonly />
+                                <label>Adic. de risco:
+                                    <select name="ddInsa" id="ddInsa1" onchange="calcSalario(this.form);"
+                                        style="width: 150px;">
+                                        <option value="0" selected>
+                                            Nenhum
+                                        </option>
+                                        <option value="0.2">
+                                            Insalubridade (20%)
+                                        </option>
+                                        <option value="0.3">
+                                            Insalubridade (30%)
+                                        </option>
+                                        <option value="0.4">
+                                            Insalubridade (40%)
+                                        </option>
+                                        <option value="0.3">
+                                            Periculosidade (30%)
+                                        </option>
+                                    </select>
                                 </label>
-                            </div>
-                            <div id="depsFunbendiv">
-                                <label
-                                onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">
-                                Nº de dep. Funben:
-                                <input type="number" name="numDepFunben" id="numDepFunben1" min="0" max="20" step="1"
-                                    value="0" style="width: 35px;" onClick="calcSalario(this.form);"
-                                    onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
-                                <input type="text" name="txDepsFunben" value="R$ 0,00" readonly />
-                            </label>
+                                <input type="text" name="txInsa" style="width: 82px" value="R$ 0,00" readonly />
                             </div>
                             <div>
                                 <label
@@ -284,17 +289,33 @@
                             </div>
                             <div>
                                 <label>
+                                    Funben:
+                                    <input type="checkbox" name="funben" id="funben1" value="0"
+                                        onClick="calcSalario(this.form);" />
+                                    <input type="text" name="txFunbenTit" value="R$ 0,00" readonly />
+                                </label>
+                            </div>
+                            <div id="depsFunbendiv">
+                                <label
+                                onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">
+                                Nº de dep. Funben:
+                                <input type="number" name="numDepFunben" id="numDepFunben1" min="0" max="20" step="1"
+                                    value="0" style="width: 35px;" onClick="calcSalario(this.form);"
+                                    onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
+                                <input type="text" name="txDepsFunben" value="R$ 0,00" readonly />
+                            </label>
+                            </div>
+                            <div>
+                                <label>
                                     Retroativo (dias):
                                     <input type="number" name="retro" id="retro1" min="0" max="30"
-                                    step="1" value="0" style="width: 45px;" onClick="calcSalario(this.form);"
-                                    onKeyUp="calcSalario(this.form);" />
-                                    </br>
-                                    VB: <input type="text" name="txVBretro" value="R$ 0,00" readonly />
+                                    step="1" value="0" style="width: 35px;" onClick="calcSalario(this.form);"
+                                    onKeyUp="calcSalario(this.form);" /> <br/>
+                                    VB: <input type="text" name="txVBretro" value="R$ 0,00" style="width: 94px;" readonly />
+                                    Insal./Pericul.: <input type="text" name="txInsalRetro" value="R$ 0,00" readonly />
                                     <br/>
-                                    G.Leg: <input type="text" name="txGratRetro" value="R$ 0,00" readonly />
-                                    <br />
                                     AQ: <input type="text" name="txAQretro" value="R$ 0,00" readonly />
-                                    <br />
+                                    Grat.Leg.: <input type="text" name="txGratRetro" value="R$ 0,00" readonly />
                                 </label>
                             </div>
                         </div>
@@ -355,7 +376,7 @@
                                     IRRF:
                                     <input type="text" name="txIrrf" value="0" readonly />
                                 </label>
-                                <br>
+                                <br/>
                                 <label>
                                     Líquido:
                                     <input type="text" name="txResult" value="0" readonly />

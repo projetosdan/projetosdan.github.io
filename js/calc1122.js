@@ -40,7 +40,11 @@ function firstload() {
 
 function formatValor(valor) {
     //var intRegex = /^\d+$/;
-    return "R$ " + valor.toFixed(2).replace(".", ",");
+    return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
+        valor,
+      );
+    //return "R$ " + valor.toFixed(2).replace(".", ",");
+    //return valor;
 }
 
 function valorIRRF(base, periodo) {
@@ -193,8 +197,6 @@ function calcSalario(form) {
     var reajuste = parseFloat(form.numProposta.value);
     base = base * (1 + (reajuste / 100));
 
-
-
     var nivelMerito = 1,
         nivelCap = 0,
         correlacoes = [0.234196, 0.5112983, 1];
@@ -251,6 +253,8 @@ function calcSalario(form) {
    
     var anuenio = (form.numAnuenio.value / 100) * vencimento;
 
+    var insal = (form.ddInsa.value) * vencimento;
+
     var qualificacao = 0;
     if (form.ddQuali.value == 1) {
         qualificacao = 350;
@@ -269,12 +273,13 @@ function calcSalario(form) {
         vbretro = vencimento / 30 * retro,
         gratretro = grat / 30 * retro,
         aqretro = qualificacao / 30 * retro,
-        retroativo = vbretro + gratretro + aqretro;
+        insalretro = insal / 30 * retro,
+        retroativo = vbretro + gratretro + aqretro + insalretro;
 
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
 
-    var remuneracao = vencimento + grat + qualificacao + retroativo + anuenio + outrosRendTrib;
+    var remuneracao = vencimento + grat + qualificacao + insal + retroativo + anuenio + outrosRendTrib;
 
     var sindicato = 0;
     if (form.ddSindTipo.value != "nao") {
@@ -364,6 +369,8 @@ function calcSalario(form) {
     form.txCticket.value = formatValor(salario + ticket);
     form.txFunbenTit.value = formatValor(funbentit);
     form.txDepsFunben.value = formatValor(funbendeps);
+    form.txInsa.value = formatValor(insal);
+    form.txInsalRetro.value = formatValor(insalretro);
 
     //Display info on Detailed Results
     var formid = 1;
@@ -381,7 +388,9 @@ function calcSalario(form) {
     addDetailValue("#tabdetails-rend", formid, "VB", vencimento);
     addDetailValue("#tabdetails-rend", formid, "Ticket Alimentacao", ticket);
     //if (transporte > 0) addDetailValue("#tabdetails-rend", formid, "VT", transporte);
-    //if (anuenio > 0) addDetailValue("#tabdetails-rend", formid, "Anuênio", anuenio);
+    if (anuenio > 0) addDetailValue("#tabdetails-rend", formid, "Quinquênio", anuenio);
+    if (insal > 0) addDetailValue("#tabdetails-rend", formid, "Insal./Pericul.", insal);
+    if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", insal);
     if (outrosRendIsnt > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Isen.", outrosRendIsnt);
     if (outrosRendTrib > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Trib.", outrosRendTrib);
 
