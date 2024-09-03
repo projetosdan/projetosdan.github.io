@@ -202,7 +202,8 @@ function calcSalario(form) {
 
     var nivelMerito = 1,
         nivelCap = 0,
-        correlacoes = [0.234196, 0.5112983, 1];
+        //correlacoes = [0.234196, 0.5112983, 1];
+        correlacoes = [0.2341958, 0.511298, 1];
         //0,5112985014
         //0,234195651
 
