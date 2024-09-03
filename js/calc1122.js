@@ -198,10 +198,12 @@ function calcSalario(form) {
     //     base = 1822.77 * (1 + (reajuste / 100));
     // }
     var reajuste = parseFloat(form.numProposta.value);
-    if (reajuste > 0) {
+    if (isNaN(reajuste)) {
+        reajuste = 0;
+    } else {
         base = base * (1 + (reajuste / 100));
     }
-    
+
     var nivelMerito = 1,
         nivelCap = 0,
         //correlacoes = [0.234196, 0.5112983, 1];
