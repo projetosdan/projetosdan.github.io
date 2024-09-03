@@ -170,7 +170,7 @@ function calcSalario(form) {
 
     var periodo = parseInt(form.ddAno.value),
     //base = 17154.93, antes do reajuste de 3,7%
-    base = 17789.66,
+    base = 17789.6526,
     ftstep = 1.025;
 
     // Situações especiais (considerando referência no A e não no E, como acima)
@@ -258,6 +258,11 @@ function calcSalario(form) {
 
     var insal = (form.ddInsa.value) * vencimento;
 
+    var cursos = parseInt(form.cursos.value, 10),
+        aqcursos = 0;
+    if ( isNaN(cursos)) {
+        cursos = 0;
+    }
     var qualificacao = 0;
     if (form.ddQuali.value == 1) {
         qualificacao = 350;
@@ -268,17 +273,26 @@ function calcSalario(form) {
     } else if (form.ddQuali.value == 4) {
         qualificacao = 950;
     }
-    var cursos = parseInt(form.cursos.value),
-        aqcursos = cursos * 200;
-
-        qualificacao += aqcursos;
+   
+    qualificacao += aqcursos;
     
-    var retro = parseInt(form.retro.value) / 30,
+    var retro = 0,
+        vbretro =  0,
+        gratretro = 0,
+        aqretro = 0,
+        insalretro = 0,
+        retroativo;
+
+    if(isNaN(parseInt(form.retro.value, 10))){
+        retroativo = 0;
+    } else {
+        retro = parseInt(form.retro.value) / 30;
         vbretro = vencimento * retro, // 30 * retro,
         gratretro = grat * retro, // 30 * retro,
         aqretro = qualificacao * retro, // 30 * retro,
         insalretro = insal * retro, // 30 * retro,
         retroativo = vbretro + gratretro + aqretro + insalretro;
+    }
 
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
