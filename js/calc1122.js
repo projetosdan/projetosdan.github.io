@@ -267,6 +267,8 @@ function calcSalario(form) {
         aqcursos = 0;
     if ( isNaN(cursos)) {
         cursos = 0;
+    } else {
+        aqcursos = cursos * 200;
     }
     var qualificacao = 0;
     if (form.ddQuali.value == 1) {
