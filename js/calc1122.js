@@ -169,7 +169,7 @@ function calcSalario(form) {
     }
 
     var periodo = parseInt(form.ddAno.value),
-    base = 17154.93, antes do reajuste de 3,7%
+    base = 17154.93, // antes do reajuste de 3,7%
     //base = 17789.6526,
     ftstep = 1.025;
 
