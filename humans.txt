@@ -7,7 +7,7 @@
 
 # THANKS
 
-    Luiz Eduardo, Adolfo Carlos
+    Luiz Eduardo, Adolfo Carlos, Daniel Torres
 
 # TECHNOLOGY COLOPHON
 

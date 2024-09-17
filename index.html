@@ -111,8 +111,11 @@
                                     onmouseover="nhpup.popup('Vários valores dependem do período do salário. Selecione o período em que o salário seria recebido, independente de seu ingresso na IFE. Esta opção tem maior chance de erros para períodos anteriores ao atual.');">
                                     Período:
                                     <select name="ddAno" id="ddAno1" onchange="calcSalario(this.form);">
-                                        <option value="17" selected>
-                                            Vigente
+                                        <option value="0">
+                                            Anterior (até 04/2024)
+                                        </option>
+                                        <option value="1" selected>
+                                            Vigente (a partir de 05/2024)
                                         </option>
                                     </select>
                                 </label>
