@@ -240,9 +240,11 @@ function calcSalario(form) {
 
     var vencimento = correl * Math.ceil(base * Math.pow(ftstep, ftvb) * ftcarga * 100) / 100;
 
+    var quinquenio = (form.numQuinquenio.value / 100) * vencimento;
+    
     var grat = 0;
     if (form.grat.checked) {
-        grat = (vencimento * 0.05);
+        grat = (vencimento + quinquenio) * 0.05;
         //var aliqirrfferias = valorIRRF(ferias, periodo);
     } else {
         grat = 0;
@@ -259,7 +261,6 @@ function calcSalario(form) {
     //     vencimento = Math.ceil(base * Math.pow(ftstep, ftvb) * ftcarga * 100 * frac) / 100;
     // }
    
-    var quinquenio = (form.numQuinquenio.value / 100) * vencimento;
 
     var insal = (form.ddInsa.value) * vencimento;
 
