@@ -9,10 +9,8 @@ function updateQuali(form, classs) {
     var curValue = form.ddQuali.value;
     var classe = parseInt(classs, 10);
     if (classe == 0) {
-        newoptions = alloptions.slice(0, alloptions.length);
-        newvalues = allvalues.slice(0, alloptions.length);
-        newoptions.splice(2, alloptions.length);
-        newvalues.splice(2, allvalues.length);
+        newoptions = alloptions;
+        newvalues = allvalues;
     } else if (classe == 1 || classe == 2) {
         newoptions = alloptions.slice(0, alloptions.length);
         newvalues = allvalues.slice(0, alloptions.length);
@@ -35,7 +33,7 @@ function updateQuali(form, classs) {
 
 function firstload() {
     updateQuali(myform, 1);
-    updateQuali(myform2, 1);
+    //updateQuali(myform2, 1);
 }
 
 function formatValor(valor) {
@@ -49,7 +47,7 @@ function formatValor(valor) {
 
 function valorIRRF(base, periodo) {
     var aliquota = 0;
-    if (periodo == 1) {
+    if (periodo < 1) {
     } else {
         // Ano 2024
         if (base < 2259.20) {
@@ -72,7 +70,7 @@ function calcPSS(periodo, base) {
     if (periodo == 0) {
         valor = base * 0.11;
     } 
-    else if (periodo > 1) {
+    else if (periodo >= 1) {
        if (base <= 1412.0) {
             //salario minimo
             valor = 0.075 * base;
@@ -100,13 +98,7 @@ function calcPSS(periodo, base) {
 function dependentesIR(deps, periodo) {
     var aliq = 0;
     //var deps = 0;
-    if (periodo == 1) {
-        // Ano 2013
-        aliq = deps * 171.97;
-    } else if (periodo <= 4) {
-        //Entre 2014 e 02/2015
-        aliq = deps * 179.71;
-    } else {
+    if (periodo >= 1) {
         aliq = deps * 189.59;
     }
     return Math.floor(aliq * 100) / 100;
@@ -163,6 +155,36 @@ function calcNovoPCCV(salarioBase, nivelDesejado, correl) {
     return salarioAtual;
 }
 
+function valorSaude(ftidade, periodo) {
+    var tabela = Array();
+    if (periodo == 1){
+        tabela = Array(639.28, 655.86, 672.45, 740.08, 888.10);
+    } else if (periodo == 2) {
+        tabela = Array(717.55, 717.55, 1076.32, 1076.32, 1614.48);
+    }
+    if (ftidade == 1000) {
+        return 0;
+    } else {
+        return tabela[ftidade];
+    }
+}
+
+function valorTransporte(vencimento, gasto) {
+    var auxilio = 0;
+    var gastodiaro = 0;
+    if (isNaN(gasto) || gasto < 0) {
+        gastodiario = 0;
+    } else {
+        gastodiario = Math.ceil((gasto - 1) / 0.2) * 0.2 + 1;
+    }
+    auxilio = gastodiario * 22 - vencimento * 0.06 * (22 / 30);
+    if (auxilio < 0) {
+        return 0;
+    } else {
+        return auxilio;
+    }
+}
+
 function calcSalario(form) {
     if (form.name == "myform") {
         //$('#numProposta1').parent().css('visibility','hidden');
@@ -176,63 +198,12 @@ function calcSalario(form) {
     // Ocultando elementos com CSS
     $('#maindiv3').css('visibility','hidden');
     $('#aqtext').css('visibility','hidden');
-    //if (!form.ticket.checked){}
+    //if (!form.alimentacao.checked){}
 
-   // $('#menu-bar').css('visibility','hidden');
-
-    if (form.ticket.checked){
-        var ticket = 1750.0;
-        $('#ticketdiv').css('visibility','visible');  
-    } 
-    else {
-        ticket = 0;
-        $('#ticketdiv').css('visibility','hidden');
-    }
-
-    var periodo = parseInt(form.ddAno.value),
+    var periodo = parseInt(form.ddAno.value);
     // base = 17154.93, // antes do reajuste de 3,7%
-    base = 9234.83,
-    ftstep = 1.03;
-
-    // Situações especiais (considerando referência no A e não no E, como acima)
-    // if (periodo == 100) {
-    //     //Proposta Fasubra 2023 AB CD E plenaria
-    //     //Piso 3 SM, Step 5%
-    //     ftstep = 1.05;
-    //     base = 3960;
-    // } else if (periodo == 101) {
-    //     //Proposta Fasubra 2023 AB CD E sem reajuste
-    //     //Piso 3 SM, Step 5%
-    //     ftstep = 1.039;
-    //     base = 1822.77;
-    // } else if (periodo == 102) {
-    //     //Ajusta o estado do campo reajuste de acordo com periodo
-    //     if (form.name == "myform") {
-    //         document.getElementById("numProposta1").disabled = false;
-    //     } else if (form.name == "myform2") {
-    //         document.getElementById("numProposta2").disabled = false;
-    //     }
-    //     var reajuste = parseInt(form.numProposta.value, 10);    
-    //     //Proposta Fasubra 2023 AB CD E +15%
-    //     //Piso 3 SM, Step 3.9%
-    //     ftstep = 1.039;
-    //     base = 1822.77 * (1 + (reajuste / 100));
-    // }
-    var reajuste = parseFloat(form.numProposta.value);
-    if (isNaN(reajuste)) {
-        reajuste = 0;
-    } else {
-        base = base * (1 + (reajuste / 100));
-    }
-
-    var nivelMerito = 1,
-        nivelCap = 0,
-        //correlacoes = [0.234196, 0.5112983, 1];
-        correlacoes = [0.6, 1, 1.5];
-        //0,5112985014
-        //0,234195651
-
-    if (periodo < 19) {
+/*
+    if (periodo == 1) {
         if (form.name == "myform") {
             $('#ddNivel1, #ddProg1').parent().parent().show();
             $('#ddPadrao1').parent().parent().hide();
@@ -241,7 +212,7 @@ function calcSalario(form) {
             $('#ddPadrao2').parent().parent().hide();
         }
         nivelMerito = parseInt(form.ddNivel.value);
-        //nivelCap = parseInt(form.ddProg.value);        
+        nivelCap = parseInt(form.ddProg.value);        
     } else {
         if (form.name == "myform") {
             $('#ddNivel1, #ddProg1').parent().parent().hide();
@@ -251,16 +222,36 @@ function calcSalario(form) {
             $('#ddPadrao2').parent().parent().show();
         }
         nivelMerito = parseInt(form.ddPadrao.value);
-        correlacoes = [0.60, 0.60, 1];
+        correlacoes = [0.40, 0.40, 0.60, 0.60, 1];
     } 
-    
-    var correl = correlacoes[parseInt(form.ddClasse.value)];
-    var ftvb = nivelMerito + nivelCap - 1;
-    //var ftcarga = form.ddCargaH.value;
-    var ftcarga = 1;
+*/  var base = 0;
+    if (periodo == 1) {
+        base = 10158.31;
+    } else if (periodo == 2){
+        base = 10158.31 * 1.05;
+    }
+
+    if (periodo == 1){
+        var alimentacao = 1750;
+    } else if (periodo == 2) {
+        alimentacao = 2152.62;
+    }
+    console.log("Alimentacao: ", alimentacao);
+   // $('#menu-bar').css('visibility','hidden');
+
+    var reajuste = parseFloat(form.numProposta.value);
+    if (isNaN(reajuste)) {
+        reajuste = 0;
+    } else {
+        base = base * (1 + (reajuste / 100));
+    }
+
+    var nivel = parseInt(form.ddNivel.value, 10),
+        correlacoes = [0.6, 1, 1.5],
+        correl = correlacoes[parseInt(form.ddClasse.value, 10)];
 
     //var vencimento = correl * Math.ceil(base * Math.pow(ftstep, ftvb) * ftcarga * 100) / 100;
-    var vencimento = calcNovoPCCV(base,nivelMerito,correl);
+    var vencimento = calcNovoPCCV(base,nivel,correl);
     var grat = 0;
     if (form.grat.checked) {
         grat = (vencimento * 0.2);
@@ -270,19 +261,10 @@ function calcSalario(form) {
         //var aliqirrfferias = 0;
     }
 
-    // if (periodo >= 100) {        
-    //     //Propostas Fasubra
-    //     var frac = 1;
-    //     ftvb = nivelMerito + nivelCap - 2;
-    //     //if (classeOffset == 1 || classeOffset == 6) frac = 0.4; //niveis AB
-    //     if (classeOffset == 11 || classeOffset == 17) frac = 0.6 / 0.4; //niveis CD
-    //     if (classeOffset == 31) frac = 1 / 0.4
-    //     vencimento = Math.ceil(base * Math.pow(ftstep, ftvb) * ftcarga * 100 * frac) / 100;
-    // }
-   
     var quinquenio = (form.numQuinquenio.value / 100) * vencimento;
 
-    var insal = (form.ddInsa.value) * vencimento;
+    //var insal = (form.ddInsa.value) * vencimento;
+    var insal = 0;
 
     var cursos = parseInt(form.cursos.value, 10),
         aqcursos = 0;
@@ -291,6 +273,7 @@ function calcSalario(form) {
     } else {
         aqcursos = vencimento * cursos * 0.01;
     }
+
     var qualificacao = 0;
     if (form.ddQuali.value == 1) {
         qualificacao = vencimento * 0.05;
@@ -301,51 +284,41 @@ function calcSalario(form) {
     } else if (form.ddQuali.value == 4) {
         qualificacao = vencimento * 0.13;
     }
-   
-    qualificacao += aqcursos;
     
-    var retro = 0,
-        vbretro =  0,
-        gratretro = 0,
-        aqretro = 0,
-        insalretro = 0,
-        retroativo;
+    var saude = form.saude.checked
+    ? valorSaude(parseInt(form.ddIdade.value, 10), periodo) +
+      valorSaude(parseInt(form.ddIdadeDep1.value, 10), periodo) +
+      valorSaude(parseInt(form.ddIdadeDep2.value, 10), periodo) +
+      valorSaude(parseInt(form.ddIdadeDep3.value, 10), periodo) * form.Dep3Qtd.value
+    : 0;
 
-    if(isNaN(parseInt(form.retro.value, 10))){
-        retroativo = 0;
-    } else {
-        retro = parseInt(form.retro.value) / 30;
-        vbretro = vencimento * retro, // 30 * retro,
-        gratretro = grat * retro, // 30 * retro,
-        aqretro = qualificacao * retro, // 30 * retro,
-        insalretro = insal * retro, // 30 * retro,
-        retroativo = vbretro + gratretro + aqretro + insalretro;
+    console.log("Saude: ", saude);
+
+    if (periodo == 1){
+        var creche = 369.6 * form.numCreche.value;
+    } else if (periodo == 2){
+        creche = 369.6 * 1.05 * form.numCreche.value;
     }
+
+    console.log("Creche: ", creche);
 
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
 
-    var adicionais = qualificacao + grat + insal + quinquenio;
+    var adicionais = qualificacao + grat + insal + quinquenio + alimentacao + saude;
     
-    var remuneracao = vencimento + grat + qualificacao + insal + retroativo + quinquenio + outrosRendTrib;
+    var remuneracao = vencimento + adicionais + outrosRendTrib;
+
+    //A base do PSS é quase a mesma da 'remuneracao', mas sem insalubridade pois a cobrança é opcional
+    var basepss = vencimento + qualificacao;
+    console.log("base pss: ",basepss);
+    //var valorpss = calcPSS(periodo, basepss, tetopss);
+    var valorpss = calcPSS(periodo, basepss);
 
     var sindicato = 0;
     if (form.ddSindTipo.value != "nao") {
-        if (form.ddSindTipo.value == "vb") {
-            sindicato = vencimento * 0.01;
-        } else if (form.ddSindTipo.value == "rem") {
-            sindicato = remuneracao * 0.01;
-        } else {
-            //form.ddSindTipo.value == "cat" 
-            sindicato = Math.round(0.01 * correl * Math.ceil(base * Math.pow(ftstep, ftvb)) * ftcarga * 100) / 100;
-        }
+            sindicato = (basepss + grat) * 0.015;
     }
-
-    //A base do PSS é quase a mesma da 'remuneracao', mas sem insalubridade pois a cobrança é opcional
-    var basepss = remuneracao - grat - gratretro;
-
-    //var valorpss = calcPSS(periodo, basepss, tetopss);
-    var valorpss = calcPSS(periodo, basepss);
 
     var reducaoDepsIRRF = dependentesIR(form.numDepIRRF.value, periodo);
 
@@ -364,20 +337,15 @@ function calcSalario(form) {
     }
 
     //var rendTributavel = vencimento + qualificacao + quinquenio + ftinsa * vencimento + outrosRendTrib;
-    var rendTributavel = remuneracao;
-
+    var rendTributavel = vencimento + qualificacao + grat;
+    console.log("GAJ: ", grat);
     //var deducoesIrrf = valorpss + aliqfunp + aliqFunpFacul + reducaoDepsIRRF;
     var deducoesIrrf = valorpss + funben + reducaoDepsIRRF;
-
+    console.log(deducoesIrrf,valorpss , funben , reducaoDepsIRRF);
     var baseirrf = rendTributavel - deducoesIrrf;
 
-    /*if (periodo == 16 && deducoesIrrf < 528) {
-        baseirrf = rendTributavel - 528;
-    } else if (periodo > 16 && deducoesIrrf < 564.80) {
-        baseirrf = rendTributavel - 564.80;
-    }*/
-
     var aliqirrf = valorIRRF(baseirrf, periodo);
+    console.log("IR: ",aliqirrf);
 
     var outrosdescontos = parseFloat(form.numOutros.value) || 0;
 
@@ -400,10 +368,7 @@ function calcSalario(form) {
     document.getElementById("diffLiqPor").innerHTML = ((100 * liq2) / liq1).toFixed(0) + "%"; */
     form.txVB.value = formatValor(vencimento);
     form.txAdicionais.value = formatValor(adicionais);
-    form.txRetro.value = formatValor(retroativo);
-    form.txVBretro.value = formatValor(vbretro);
     form.txGrat.value = formatValor(grat);
-    form.txGratRetro.value = formatValor(gratretro);
     form.txResult.value = formatValor(salario);
     form.txInss.value = formatValor(valorpss);
     form.txBruto.value = formatValor(bruto);
@@ -413,14 +378,16 @@ function calcSalario(form) {
     form.txdesconto.value = formatValor(descontos);
     form.txSindicato.value = formatValor(sindicato);
     form.txQualif.value = formatValor(qualificacao);
-    form.txAQretro.value = formatValor(aqretro);
     form.txDepIRRF.value = formatValor(reducaoDepsIRRF);
-    form.txTicket.value = formatValor(ticket);
-    form.txCticket.value = formatValor(salario + ticket);
+    form.txAlim.value = formatValor(alimentacao);
     form.txFunbenTit.value = formatValor(funbentit);
     form.txDepsFunben.value = formatValor(funbendeps);
-    form.txInsa.value = formatValor(insal);
-    form.txInsalRetro.value = formatValor(insalretro);
+    //form.txInsa.value = formatValor(insal);
+    form.txSaude.value = formatValor(saude);
+    form.txCreche.value = formatValor(creche);
+    form.txQuinq.value = formatValor(quinquenio);
+    form.txQuali.value = formatValor(qualificacao);
+    form.txCursos.value = formatValor(aqcursos);
 
     //Display info on Detailed Results
     var formid = 1;
@@ -436,12 +403,12 @@ function calcSalario(form) {
     }
 
     addDetailValue("#tabdetails-rend", formid, "VB", vencimento);
-    addDetailValue("#tabdetails-rend", formid, "Ticket Alimentacao", ticket);
+    addDetailValue("#tabdetails-rend", formid, "Auxilio Alimentacao", alimentacao);
     //if (transporte > 0) addDetailValue("#tabdetails-rend", formid, "VT", transporte);
     if (qualificacao > 0) addDetailValue("#tabdetails-rend", formid, "AQ", qualificacao);
     if (quinquenio > 0) addDetailValue("#tabdetails-rend", formid, "Quinquênio", quinquenio);
     if (insal > 0) addDetailValue("#tabdetails-rend", formid, "Insal./Pericul.", insal);
-    if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", retroativo);
+    //if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", retroativo);
     if (outrosRendIsnt > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Isen.", outrosRendIsnt);
     if (outrosRendTrib > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Trib.", outrosRendTrib);
 

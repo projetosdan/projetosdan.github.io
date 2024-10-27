@@ -49,7 +49,7 @@ function formatValor(valor) {
 
 function valorIRRF(base, periodo) {
     var aliquota = 0;
-    if (periodo == 1) {
+    if (periodo == 0) {
     } else {
         // Ano 2024
         if (base < 2259.20) {
@@ -72,7 +72,7 @@ function calcPSS(periodo, base) {
     if (periodo == 0) {
         valor = base * 0.11;
     } 
-    else if (periodo > 1) {
+    else if (periodo >= 1) {
        if (base <= 1412.0) {
             //salario minimo
             valor = 0.075 * base;
@@ -100,13 +100,7 @@ function calcPSS(periodo, base) {
 function dependentesIR(deps, periodo) {
     var aliq = 0;
     //var deps = 0;
-    if (periodo == 1) {
-        // Ano 2013
-        aliq = deps * 171.97;
-    } else if (periodo <= 4) {
-        //Entre 2014 e 02/2015
-        aliq = deps * 179.71;
-    } else {
+    if (periodo > 0) {
         aliq = deps * 189.59;
     }
     return Math.floor(aliq * 100) / 100;
