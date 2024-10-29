@@ -311,7 +311,7 @@ function calcSalario(form) {
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
 
-    var adicionais = qualificacao + grat + insal + quinquenio + alimentacao + saude + creche;
+    var adicionais = qualificacao + aqcursos + grat + insal + quinquenio + alimentacao + saude + creche;
     
     var remuneracao = vencimento + adicionais + outrosRendTrib;
 
