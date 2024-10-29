@@ -35,7 +35,7 @@ function updateQuali(form, classs) {
 
 function firstload() {
     updateQuali(myform, 1);
-    updateQuali(myform2, 1);
+    //updateQuali(myform2, 1);
 }
 
 function formatValor(valor) {
@@ -223,7 +223,7 @@ function calcSalario(form) {
             $('#ddNivel2, #ddProg2').parent().parent().hide();
             $('#ddPadrao2').parent().parent().show();
         }
-        nivelMerito = parseInt(form.ddPadrao.value);
+        //nivelMerito = parseInt(form.ddPadrao.value);
         correlacoes = [0.60, 0.60, 1];
     } 
     

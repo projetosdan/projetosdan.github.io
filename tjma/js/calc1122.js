@@ -231,11 +231,17 @@ function calcSalario(form) {
         base = 10158.31 * 1.05;
     }
 
-    if (periodo == 1){
-        var alimentacao = 1750;
-    } else if (periodo == 2) {
-        alimentacao = 2152.62;
+    if (form.alim.checked){
+
+        if (periodo == 1){
+            var alimentacao = 1750;
+        } else if (periodo == 2) {
+            alimentacao = 2152.62;
+        } 
+    } else {
+        alimentacao = 0;
     }
+
     console.log("Alimentacao: ", alimentacao);
    // $('#menu-bar').css('visibility','hidden');
 
