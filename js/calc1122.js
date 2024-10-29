@@ -278,30 +278,12 @@ function calcSalario(form) {
    
     qualificacao += aqcursos;
     
-    var retro = 0,
-        vbretro =  0,
-        gratretro = 0,
-        aqretro = 0,
-        insalretro = 0,
-        retroativo;
-
-    if(isNaN(parseInt(form.retro.value, 10))){
-        retroativo = 0;
-    } else {
-        retro = parseInt(form.retro.value) / 30;
-        vbretro = vencimento * retro, // 30 * retro,
-        gratretro = grat * retro, // 30 * retro,
-        aqretro = qualificacao * retro, // 30 * retro,
-        insalretro = insal * retro, // 30 * retro,
-        retroativo = vbretro + gratretro + aqretro + insalretro;
-    }
-
     var outrosRendTrib = parseFloat(form.numOutrosRendTrib.value) || 0;
     var outrosRendIsnt = parseFloat(form.numOutrosRendIsnt.value) || 0;
 
     var adicionais = qualificacao + grat + insal + quinquenio;
     
-    var remuneracao = vencimento + grat + qualificacao + insal + retroativo + quinquenio + outrosRendTrib;
+    var remuneracao = vencimento + grat + qualificacao + insal + quinquenio + outrosRendTrib;
 
     var sindicato = 0;
     if (form.ddSindTipo.value != "nao") {
@@ -316,7 +298,7 @@ function calcSalario(form) {
     }
 
     //A base do PSS é quase a mesma da 'remuneracao', mas sem insalubridade pois a cobrança é opcional
-    var basepss = remuneracao - grat - gratretro;
+    var basepss = remuneracao - grat;
 
     //var valorpss = calcPSS(periodo, basepss, tetopss);
     var valorpss = calcPSS(periodo, basepss);
@@ -327,8 +309,8 @@ function calcSalario(form) {
     if (form.funben.checked){
         $('#depsFunbendiv').css('visibility','visible');
         var depsfunben = dependentesFunben(form.numDepFunben.value),
-            funbentit = (vencimento + vbretro) * 0.03,
-            funbendeps = (vencimento + vbretro) * depsfunben,
+    
+    
             funben = funbentit + funbendeps;
     } else {
         $('#depsFunbendiv').css('visibility','hidden');
@@ -374,10 +356,7 @@ function calcSalario(form) {
     document.getElementById("diffLiqPor").innerHTML = ((100 * liq2) / liq1).toFixed(0) + "%"; */
     form.txVB.value = formatValor(vencimento);
     form.txAdicionais.value = formatValor(adicionais);
-    form.txRetro.value = formatValor(retroativo);
-    form.txVBretro.value = formatValor(vbretro);
     form.txGrat.value = formatValor(grat);
-    form.txGratRetro.value = formatValor(gratretro);
     form.txResult.value = formatValor(salario);
     form.txInss.value = formatValor(valorpss);
     form.txBruto.value = formatValor(bruto);
@@ -387,14 +366,12 @@ function calcSalario(form) {
     form.txdesconto.value = formatValor(descontos);
     form.txSindicato.value = formatValor(sindicato);
     form.txQualif.value = formatValor(qualificacao);
-    form.txAQretro.value = formatValor(aqretro);
     form.txDepIRRF.value = formatValor(reducaoDepsIRRF);
     form.txTicket.value = formatValor(ticket);
     form.txCticket.value = formatValor(salario + ticket);
     form.txFunbenTit.value = formatValor(funbentit);
     form.txDepsFunben.value = formatValor(funbendeps);
     form.txInsa.value = formatValor(insal);
-    form.txInsalRetro.value = formatValor(insalretro);
 
     //Display info on Detailed Results
     var formid = 1;
@@ -415,7 +392,6 @@ function calcSalario(form) {
     if (qualificacao > 0) addDetailValue("#tabdetails-rend", formid, "AQ", qualificacao);
     if (quinquenio > 0) addDetailValue("#tabdetails-rend", formid, "Quinquênio", quinquenio);
     if (insal > 0) addDetailValue("#tabdetails-rend", formid, "Insal./Pericul.", insal);
-    if (retroativo > 0) addDetailValue("#tabdetails-rend", formid, "Retroativo", retroativo);
     if (outrosRendIsnt > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Isen.", outrosRendIsnt);
     if (outrosRendTrib > 0) addDetailValue("#tabdetails-rend", formid, "Outros Rend. Trib.", outrosRendTrib);
 
