@@ -292,10 +292,7 @@ function calcSalario(form) {
     }
     
     var saude = form.saude.checked
-    ? valorSaude(parseInt(form.ddIdade.value, 10), periodo) +
-      valorSaude(parseInt(form.ddIdadeDep1.value, 10), periodo) +
-      valorSaude(parseInt(form.ddIdadeDep2.value, 10), periodo) +
-      valorSaude(parseInt(form.ddIdadeDep3.value, 10), periodo) * form.Dep3Qtd.value
+    ? valorSaude(parseInt(form.ddIdade.value, 10), periodo)
     : 0;
 
     console.log("Saude: ", saude);
