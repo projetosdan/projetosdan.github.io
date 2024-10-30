@@ -291,14 +291,16 @@ function calcSalario(form) {
         qualificacao = vencimento * 0.13;
     }
     
-    var saude = form.saude.checked
-    ? valorSaude(parseInt(form.ddIdade.value, 10), periodo)
-    : 0;
+    var saude = 0
+    if (form.saude.checked){
+        saude = valorSaude(parseInt(form.ddIdade.value, 10), periodo);
+    }//: 0;
 
     console.log("Saude: ", saude);
 
+    var creche = 0;
     if (periodo == 1){
-        var creche = 369.6 * form.numCreche.value;
+        creche = 369.6 * form.numCreche.value;
     } else if (periodo == 2){
         creche = 369.6 * 1.05 * form.numCreche.value;
     }
