@@ -253,7 +253,7 @@ function calcSalario(form) {
     }
 
     var nivel = parseInt(form.ddNivel.value, 10),
-        correlacoes = [0.6, 1, 1.5],
+        correlacoes = [0.477224066, 1, 1.5],
         correl = correlacoes[parseInt(form.ddClasse.value, 10)];
 
     //var vencimento = correl * Math.ceil(base * Math.pow(ftstep, ftvb) * ftcarga * 100) / 100;
@@ -331,8 +331,8 @@ function calcSalario(form) {
     if (form.funben.checked){
         $('#depsFunbendiv').css('visibility','visible');
         var depsfunben = dependentesFunben(form.numDepFunben.value),
-            funbentit = (vencimento + vbretro) * 0.03,
-            funbendeps = (vencimento + vbretro) * depsfunben,
+            funbentit = (vencimento) * 0.03,
+            funbendeps = (vencimento) * depsfunben,
             funben = funbentit + funbendeps;
     } else {
         $('#depsFunbendiv').css('visibility','hidden');
