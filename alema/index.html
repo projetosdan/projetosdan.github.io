@@ -42,33 +42,78 @@
         </h1>
         <div id="menu-bar">
             <a class="menu-active" href="#">CALCULADORA</a>
-            <a class="menu-active" href="../">ALEMA</a>
+            <a class="menu-active" href="/tjma">TJMA</a>
         </div>
     </header>
     <div id="maindiv">
+
+        <!--<div style="position: fixed; top: 0; left: 0; z-index: 9999; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8);">
+                <div style="position: absolute;
+                left: calc(50% - 426px);
+                top: calc(50% - 240px);			
+                width: 852px;
+                height: 480px;
+                z-index: 99;
+                cursor: pointer;
+                border:2px solid black;
+                background-color: #fff;" onclick="$(this).hide();$($(this).parent()).hide();">
+                	< !--<a target="_blank" style="color: darkblue;" href="https://brasilparticipativo.presidencia.gov.br/processes/programas/f/2/proposals/1545">-- >
+                	<div style="background-image: url(img/ppa2.png);background-size: contain;width: 852px;
+                	height: 480px;">
+                	</div></a>
+                	<div style="width:20px;height:20px;float:right;border:1px solid black;position: absolute;
+                	right: 0;
+                	top: 0;
+                	cursor: pointer;
+                	margin: -1px;
+                	background:linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 43%,#000 45%,#000 55%,rgba(0,0,0,0) 57%,rgba(0,0,0,0) 100%),
+                linear-gradient(135deg, #fff 0%,#fff 43%,#000 45%,#000 55%,#fff 57%,#fff 100%);">
+                
+                	</div>
+                	< !--<div style="position: absolute; bottom: 20px;left: 120px;
+                	font-size: larger;color: #000;">
+                		Clique neste banner!
+                	</div>-- >
+                </div>
+                </div>  -->
+       <!--<div class="titleHolder">
+            <div class="mainTitle">
+                <h1>
+                   Calculadora
+                </h1>
+            </div>
+            <div class="cbajuda">
+                <div><input type="checkbox" name="ajuda" id="checkajuda" value="Ajuda" /> Mostrar ajuda</div>
+            </div>
+        </div> -->
+        <!-- <div class="callout">
+            <big>ATENÇÃO!</big><br />
+            Os aumentos de 4,5% para 2025 e 2026 foram oferecidos pelo governo para todas carreiras e ainda estão em negociação.
+            São os mesmos valores que foram oferecidos pelo MGI na reunião da Mesa Específica do dia 22/02/2024. 
+        </div>
+        <div class="callout callout-alert">
+            <span style="font-size:200%">AGORA É GREVE! &nbsp;&nbsp;&nbsp; Fortaleça o movimento, apoie a <span
+                    style="font-weight: 800;">nossa</span> luta!</span>
+        </div> -->
         <div class="main-content">
             <h2>
-                Simulação - TJMA
+                Simulação - ALEMA
             </h2>
             <form name="myform" action="" class="calcform" method="GET">
                 <div class="divdata">
                     <ul class="tabs-menu tabs-menu1">
                         <li class="current"><a href="#tab-carreira1">Carreira</a></li>
-                        <li><a href="#tab-ad1">Adicionais e Auxílios</a></li>
                         <li><a href="#tab-outros1">Outros</a></li>
                     </ul>
                     <div class="tab">
                         <div id="tab-carreira1" class="tab-content tab-content1">
                             <div>
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('Vários valores dependem do período do salário. Selecione o período em que o salário seria recebido, independente de seu ingresso na IFE. Esta opção tem maior chance de erros para períodos anteriores ao atual.');">-->
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('Vários valores dependem do período do salário. Selecione o período em que o salário seria recebido, independente de seu ingresso na IFE. Esta opção tem maior chance de erros para períodos anteriores ao atual.');">-->
                                     Período:
                                     <select name="ddAno" id="ddAno1" onchange="calcSalario(this.form);">
-                                        <option value="1" selected>
+                                        <option value="17" selected>
                                             Vigente
-                                        </option>
-                                        <option value="2" >
-                                            Janeiro/2025
                                         </option>
                                     </select>
                                 </label>
@@ -84,7 +129,7 @@
                             </div>
                             <div>
                                 <label>
-                                    GAJ
+                                    Gratificação Legislativa
                                     <input type="checkbox" name="grat" id="grat1" value="0"
                                         onClick="calcSalario(this.form);" />
                                     <input style="width: 85px;" type="text" name="txGrat" id="txGrat1"
@@ -92,29 +137,29 @@
                                 </label>
                             </div>
                             <div>
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('A classe é definida pela exigência de escolaridade do cargo.');">-->
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('A classe é definida pela exigência de escolaridade do cargo.');">-->
                                     Cargo:
                                     <select name="ddClasse" id="ddClasse1"
                                         onchange="updateQuali(this.form, this.form.ddClasse.value);">
                                         <option value="0">
-                                            Técnico Judiciário
+                                            Assistente Legislativo Administrativo
                                         </option>
                                         <option value="1" selected>
-                                            Analista Judiciário
+                                            Técnico de Gestão Administrativa
                                         </option>
-                                        <option value="2" hidden>
+                                        <option value="2">
                                             Consultor Legislativo Especial
                                         </option>
                                     </select>
                                 </label>
                             </div>
                             <div>
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('A Progressão por mérito profissional é relativa ao tempo do servidor no cargo, podendo ser avançada a cada 18 meses.');">-->
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('A Progressão por mérito profissional é relativa ao tempo do servidor no cargo, podendo ser avançada a cada 18 meses.');">-->
                                     Classe/Nível:
                                     <select name="ddNivel" id="ddNivel1" onchange="atualizaPold(this.form);">
-                                        <option value="1">
+                                        <option value="1" selected>
                                             A1
                                         </option>
                                         <option value="2">
@@ -124,69 +169,38 @@
                                             A3
                                         </option>
                                         <option value="4">
-                                            A4
-                                        </option>
-                                        <option value="5">
-                                            A5
-                                        </option>
-                                        <option value="6">
                                             B1
                                         </option>
-                                        <option value="7">
+                                        <option value="5">
                                             B2
                                         </option>
-                                        <option value="8">
+                                        <option value="6">
                                             B3
                                         </option>
-                                        <option value="9">
-                                            B4
-                                        </option>
-                                        <option value="10">
-                                            B5
-                                        </option>
-                                        <option value="11">
+                                        <option value="7">
                                             C1
                                         </option>
-                                        <option value="12">
+                                        <option value="8">
                                             C2
                                         </option>
-                                        <option value="13">
+                                        <option value="9">
                                             C3
                                         </option>
-                                        <option value="14">
+                                        <option value="10">
                                             C4
-                                        </option>
-                                        <option value="15">
-                                            C5
-                                        </option>
-                                        <option value="16">
-                                            D1
-                                        </option>
-                                        <option value="17">
-                                            D2
-                                        </option>
-                                        <option value="18">
-                                            D3
-                                        </option>
-                                        <option value="19">
-                                            D4
-                                        </option>
-                                        <option value="20">
-                                            D5
                                         </option>
                                     </select>
                                 </label>
                             </div>
                             <div>
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('O Adicional por Tempo de Serviço é calculado como 5% por cada período de 5 anos. Ele foi revogado em 1999, mas se mantém para aqueles que o recebiam na época.')">-->
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('O Adicional por Tempo de Serviço é calculado como 5% por cada período de 5 anos. Ele foi revogado em 1999, mas se mantém para aqueles que o recebiam na época.')">-->
                                     Quinquênio:
                                 </label>
                                 <input type="number" name="numQuinquenio" id="numQuinquenio1" min="0" max="35" step="5"
                                     value="0" style="width: 35px;" onClick="calcSalario(this.form);"
                                     onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
                                 %
-                                <input type="text" name="txQuinq" value="R$ 0,00" readonly />
                             </div>
                             <div>
                                 <label>
@@ -209,8 +223,7 @@
                                             Doutorado
                                         </option>
                                     </select>
-                                </label>  
-                                <input type="text" name="txQuali" value="R$ 0,00" readonly />                             
+                                </label>                                
                             </div>
                             <div>
                                 <label>
@@ -219,11 +232,33 @@
                                         step="1" value="0" style="width: 30px;" onClick="calcSalario(this.form);"
                                         onKeyUp="calcSalario(this.form);" />
                                 </label>
-                                <input type="text" name="txCursos" value="R$ 0,00" readonly />
                             </div>
                             <div>
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">-->
+                                <label>Adic. de risco:
+                                    <select name="ddInsa" id="ddInsa1" onchange="calcSalario(this.form);"
+                                        style="width: 150px;">
+                                        <option value="0" selected>
+                                            Nenhum
+                                        </option>
+                                        <option value="0.2">
+                                            Insalubridade (20%)
+                                        </option>
+                                        <option value="0.3">
+                                            Insalubridade (30%)
+                                        </option>
+                                        <option value="0.4">
+                                            Insalubridade (40%)
+                                        </option>
+                                        <option value="0.3">
+                                            Periculosidade (30%)
+                                        </option>
+                                    </select>
+                                </label>
+                                <input type="text" name="txInsa" style="width: 82px" value="R$ 0,00" readonly />
+                            </div>
+                            <div>
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">-->
                                     Nº de dep. IR:
                                     <input type="number" name="numDepIRRF" id="numDepIRRF1" min="0" max="20" step="1"
                                         value="0" style="width: 35px;" onClick="calcSalario(this.form);"
@@ -233,7 +268,13 @@
                             </div>
                             <div>
                                 <label>
-                                    <!-- onmouseover="nhpup.popup('A contribuição sindical varia de acordo com o sindicato. As principais formas de cálculo são 1% do seu VB e 1% do menor VB da categoria.')">-->
+                                    Ticket alimentação
+                                    <input type="checkbox" name="ticket" id="ticket1" value="0"
+                                        onClick="calcSalario(this.form);" />
+                                    <input type="text" name="txTicket" value="R$ 0,00" readonly />
+                                </label>
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('A contribuição sindical varia de acordo com o sindicato. As principais formas de cálculo são 1% do seu VB e 1% do menor VB da categoria.')">-->
                                     Sindicato:
                                     <select name="ddSindTipo" id="ddSindTipo1" onchange="calcSalario(this.form);"
                                         style="width: 110px;">
@@ -256,195 +297,15 @@
                                 </label>
                             </div>
                             <div id="depsFunbendiv">
-                                <label>
-                                <!-- onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');"> -->
+                                <label
+                                ><!--</label>onmouseover="nhpup.popup('Para cada dependente cadastrado, é reduzida uma alíquota fixa do salário bruto, antes do cálculo do valor base. O valor indicado é o valore que é deduzido da base do IRRF.');">-->
                                 Nº de dep. Funben:
                                 <input type="number" name="numDepFunben" id="numDepFunben1" min="0" max="20" step="1"
                                     value="0" style="width: 35px;" onClick="calcSalario(this.form);"
                                     onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
                                 <input type="text" name="txDepsFunben" value="R$ 0,00" readonly />
-                                </label>
+                            </label>
                             </div>
-                        </div>
-                        <div id="tab-ad1" class="tab-content tab-content1">
-                            <div>
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('O reembolso por contrato de Plano de Saúde particular segue uma tabela definida pelo Governo Federal e depende do salário bruto e da idade do servidor.');">-->
-                                    <input type="checkbox" name="saude" id="saude1" value="Saude"
-                                        onClick="calcSalario(this.form);" checked/>
-                                    Auxílio saúde - Idade do servidor:
-                                    <select name="ddIdade" id="ddIdade1" onchange="calcSalario(this.form);">
-                                        <option value="0">
-                                            0-30 anos
-                                        </option>
-                                        <option value="1">
-                                            31-40 anos
-                                        </option>
-                                        <option value="2">
-                                            41-50 anos
-                                        </option>
-                                        <option value="3">
-                                            51-60 anos
-                                        </option>
-                                        <option value="4">
-                                            Acima de 61 anos
-                                        </option>
-                                    </select>
-                                    <input type="text" name="txSaude" value="R$ 0,00" readonly />
-                                </label>
-                            </div>
-                            <!--div>
-                                <label>
-                                    Dependente 1:
-                                    <select name="ddIdadeDep1" id="ddIdadeDep11" onchange="calcSalario(this.form);"
-                                        style="width: 70px;">
-                                        <option value="1000" selected>
-                                            Não
-                                        </option>
-                                        <option value="0">
-                                            0-30 anos
-                                        </option>
-                                        <option value="1">
-                                            31-40 anos
-                                        </option>
-                                        <option value="2">
-                                            41-50 anos
-                                        </option>
-                                        <option value="3">
-                                            51-60 anos
-                                        </option>
-                                        <option value="4">
-                                            Acima de 61 anos
-                                        </option>
-                                    </select>
-                                </label>
-                                <label style="margin-left: 6px;">Dep. 2:
-                                    <select name="ddIdadeDep2" id="ddIdadeDep21" onchange="calcSalario(this.form);"
-                                        style="width: 70px;">
-                                        <option value="1000" selected>
-                                            Não
-                                        </option>
-                                        <option value="0">
-                                            0-30 anos
-                                        </option>
-                                        <option value="1">
-                                            31-40 anos
-                                        </option>
-                                        <option value="2">
-                                            41-50 anos
-                                        </option>
-                                        <option value="3">
-                                            51-60 anos
-                                        </option>
-                                        <option value="4">
-                                            Acima de 61 anos
-                                        </option>
-                                    </select>
-                                </label>
-                                <label style="margin-left: 6px;">Dep. 3+:
-                                    <select name="ddIdadeDep3" id="ddIdadeDep31" onchange="calcSalario(this.form);"
-                                        style="width: 70px;">
-                                        <option value="1000" selected>
-                                            Não
-                                        </option>
-                                        <option value="0">
-                                            0-30 anos
-                                        </option>
-                                        <option value="1">
-                                            31-40 anos
-                                        </option>
-                                        <option value="2">
-                                            41-50 anos
-                                        </option>
-                                        <option value="3">
-                                            51-60 anos
-                                        </option>
-                                        <option value="4">
-                                            Acima de 61 anos
-                                        </option>
-                                    </select>
-                                </label>
-                                <label>
-                                    x
-                                    <input type="number" name="Dep3Qtd" min="1" max="9" step="1" value="1"
-                                        style="width: 24px;" onClick="calcSalario(this.form);"
-                                        onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
-                                </label>
-                            </div-->
-                            <hr class="hrsaude" />
-                            <!-- <div>
-                                <label>
-                                    <input type="checkbox" name="trans" id="trans1" value="Trans"
-                                        onClick="calcSalario(this.form);" />
-                                    Transporte - Gasto diário: R$
-                                    <input type="number" name="gastoTrans" id="gastoTrans1" min="2" max="99" step="0.2"
-                                        value="8" style="width: 50px;" onClick="calcSalario(this.form);"
-                                        onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
-                                    <input type="text" style="width: 75px;" name="txTrans" id="txTrans1" value="R$ 0,00"
-                                        readonly />
-                                </label>
-                            </div> -->
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="alim" value="Alim" onClick="calcSalario(this.form);"
-                                        checked /> Alimentação:
-                                    <input style="width: 75px;" type="text" name="txAlim" id="txAlim1" value="R$ 0,00"
-                                        readonly />
-                                </label>
-                                <!--<input type="checkbox" name="insa" value="Insa" onClick="calcSalario(this.form);" style="margin-left: 20px;"> -->
-                            </div>
-                            <!-- <div>
-                                <label>Adic. de risco:
-                                    <select name="ddInsa" id="ddInsa1" onchange="calcSalario(this.form);"
-                                        style="width: 120px;">
-                                        <option value="0" selected>
-                                            Nenhum
-                                        </option>
-                                        <option value="0.05">
-                                            Insal. (5%)
-                                        </option>
-                                        <option value="0.1">
-                                            Insal. (10%)
-                                        </option>
-                                        <option value="0.2">
-                                            Insal. (20%)
-                                        </option>
-                                        <option value="0.1">
-                                            Peric. (10%)
-                                        </option>
-                                    </select>
-                                </label>
-                                <input type="text" name="txInsa" style="width:72px" value="R$ 0,00" readonly />
-                            </div> -->
-                            <div>
-                                <!-- <input type="checkbox" name="creche" value="0" onClick="calcSalario(this.form);">  -->
-                                Auxílio pré-escolar - Nº:
-                                <input type="number" name="numCreche" id="numCreche1" min="0" max="10" step="1"
-                                    value="0" style="width: 30px;" onClick="calcSalario(this.form);"
-                                    onKeyPress="calcSalario(this.form);" onKeyUp="calcSalario(this.form);" />
-                                    <input type="text" name="txCreche" value="R$ 0,00" readonly />
-                            </div>
-                            <!-- <div>
-                                <label>
-                                    <input type="checkbox" name="ferias" id="ferias1" value="ferias"
-                                        onClick="calcSalario(this.form);" /> 1/3 de Férias:
-                                    <input style="width: 85px;" type="text" name="txFerias" id="txFerias1"
-                                        value="R$ 0,00" readonly />
-                                </label>
-                            </div> 
-                            <div>
-                                <label>
-                                    onmouseover="nhpup.popup('O 13º salário é pago em duas parcelas, sendo a primeira em junho e a segunda em dezembro. Na primeira parcela nenhum imposto ou contribuição é descontado, sendo o ajuste feito na segunda parcela, pois o valor final do 13º salário é igual ao salário do mês de dezembro.');">
-                                    <input type="checkbox" name="decter" id="decter1" value="decter"
-                                        onClick="calcSalario(this.form);" /> 13º Salário - Parcela:
-                                    <input type="radio" name="decter_par" id="decter_par11" value="1"
-                                        onClick="calcSalario(this.form);" checked />1ª
-                                    <input type="radio" name="decter_par" id="decter_par21" value="2"
-                                        onClick="calcSalario(this.form);" />2ª
-                                    <input style="width: 85px;" type="text" name="txDecter" id="txDecter"
-                                        value="R$ 0,00" readonly />
-                                </label>
-                            </div> -->
                         </div>
                         <div id="tab-outros1" class="tab-content tab-content1">
                             <small>Utilize estes campos caso possua outros rendimentos ou descontos em folha, como
@@ -486,15 +347,19 @@
                     <div class="tabresults">
                         <div class="tab-content3 tab-resumo" id="tab-resumo1">
                             <div class="divresults_col" style="float: left;">
-                                <label>
-                                    <!-- onmouseover="nhpup.popup('Pode ser que haja uma diferença nos centavos dos valores. Isto porque considero a fórmula genérica VB_PX = PA1 * ((1 + Step)^(X-1)), sendo que o cálculo real é feito a partir do valor de P anterior arredondado, levando a uma pequena propagação de erro.');">-->
+                                <label
+                                    ><!--</label>onmouseover="nhpup.popup('Pode ser que haja uma diferença nos centavos dos valores. Isto porque considero a fórmula genérica VB_PX = PA1 * ((1 + Step)^(X-1)), sendo que o cálculo real é feito a partir do valor de P anterior arredondado, levando a uma pequena propagação de erro.');">-->
                                     Vencimento:
                                     <input type="text" name="txVB" value="0" readonly />
                                 </label>                                
-                                <label>
-                                <!-- onmouseover="nhpup.popup('Valor recebido pelo incentivo à qualificação (graduação, especialização, pós-graduação)');">-->
+                                <label
+                                ><!--</label>onmouseover="nhpup.popup('Valor recebido pelo incentivo à qualificação (graduação, especialização, pós-graduação)');">-->
                                     Adicionais:
                                     <input type="text" name="txAdicionais" value="0" readonly />
+                                </label>
+                                <label>
+                                    Retroativo:
+                                    <input type="text" name="txRetro" value="0" readonly />
                                 </label>
                                 <label>
                                     Bruto:
@@ -533,6 +398,12 @@
                                 </label>
                             </div>
                         </div>
+                        <div id="ticketdiv" style="font-style: italic;">
+                            <label>
+                                C/ ticket alimentação:
+                                <input type="text" name="txCticket" value="0" readonly />
+                            </label>
+                        </div>
                         <div class="tab-content3 tab-details" id="tab-detail1">
                             <h4>Rendimentos</h4>
                             <div class="tabdetails-info" id="tabdetails-rend-1"></div>
@@ -545,13 +416,6 @@
                 </div>
             </form>
         </div>
-        
-        <!-- Horizontal Bar -->
-        <ins class="adsbygoogle" style="display: block; height: 90px; margin-bottom: 0.5em;"
-            data-ad-client="ca-pub-0242087922176548" data-ad-slot="2331914013"> </ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
     <footer>
         <div class="footer-disclaimer">
